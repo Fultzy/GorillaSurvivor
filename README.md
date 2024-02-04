@@ -2,7 +2,14 @@
 
 ## Description
 
-GorillaSurvivor is a Game.
+Gorilla Survivor is about a gorilla that heard about the death his Cincinnati brother so he escapes in hopes to pay his respects. he escapes his enclosure and starts making his way across the country, but his trainers are after him. 
+
+Unnamed_Gorrila has to fend off his trainers and eventually the military as you make your way to Cincinnati. With the power of God and Anime you might just make it!
+
+Thankfully the trainers have food with them to help you get even stronger
+Learn different attacks to help fend off your trainers till you achieve your mission!
+
+Now featuring [1] unique Enemies and [1] unique Attacks! 
 
 ## Installation
 
