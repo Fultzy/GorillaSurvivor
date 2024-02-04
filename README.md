@@ -8,7 +8,7 @@ GorillaSurvivor is a Game.
 
 To Work on GorillaSurvivor, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/username/repository.git`										
+1. Clone the repository: `git clone https://github.com/Fultzy/GorillaSurvivor.git`										
 2. Download and Run Godot Engine with .Net: 'https://godotengine.org/download/windows/'
 3. Import the project in the Godot Engine
 4. Play with it!
