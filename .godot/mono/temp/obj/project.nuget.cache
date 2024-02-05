@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZBfaAtXkyV59ekQLdYi5sz6vZxUruCc5GBPKUCacO9fCkSh0/o+SFPFPn6LruME9KjYaHrL6PUvnPQ5yLHdJvA==",
+  "success": true,
+  "projectFilePath": "f:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fultz\\.nuget\\packages\\godot.sourcegenerators\\4.2.1\\godot.sourcegenerators.4.2.1.nupkg.sha512",
+    "C:\\Users\\fultz\\.nuget\\packages\\godotsharp\\4.2.1\\godotsharp.4.2.1.nupkg.sha512",
+    "C:\\Users\\fultz\\.nuget\\packages\\godotsharpeditor\\4.2.1\\godotsharpeditor.4.2.1.nupkg.sha512"
+  ],
+  "logs": []
+}
