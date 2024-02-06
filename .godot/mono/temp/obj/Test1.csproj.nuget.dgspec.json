@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "f:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj": {}
+    "F:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj": {}
   },
   "projects": {
-    "f:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj": {
+    "F:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "f:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj",
+        "projectUniqueName": "F:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj",
         "projectName": "Test1",
-        "projectPath": "f:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj",
+        "projectPath": "F:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\Test1.csproj",
         "packagesPath": "C:\\Users\\fultz\\.nuget\\packages\\",
-        "outputPath": "f:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\.godot\\mono\\temp\\obj\\",
+        "outputPath": "F:\\Game Projects\\Godot\\GorillaSurvivor-Testing\\.godot\\mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

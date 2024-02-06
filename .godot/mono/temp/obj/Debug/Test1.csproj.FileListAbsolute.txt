@@ -1,0 +1,17 @@
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\bin\Debug\Test1.deps.json
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\bin\Debug\Test1.runtimeconfig.json
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\bin\Debug\Test1.dll
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\bin\Debug\Test1.pdb
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\bin\Debug\GodotSharp.dll
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.csproj.AssemblyReference.cache
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.GeneratedMSBuildEditorConfig.editorconfig
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.AssemblyInfoInputs.cache
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.AssemblyInfo.cs
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.csproj.CoreCompileInputs.cache
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.csproj.CopyComplete
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.dll
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\refint\Test1.dll
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.pdb
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\Test1.genruntimeconfig.cache
+F:\Game Projects\Godot\GorillaSurvivor-Testing\.godot\mono\temp\obj\Debug\ref\Test1.dll

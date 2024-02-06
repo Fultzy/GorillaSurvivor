@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://lyp3aff6aiiy" path="res://Player/GurillyStatic.png" id="1_4evct"]
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_d4vci"]
-[ext_resource type="PackedScene" uid="uid://b506yn5qqx1b5" path="res://Player/Attack/projectile.tscn" id="2_56lik"]
+[ext_resource type="PackedScene" uid="uid://b506yn5qqx1b5" path="res://Player/Attacks/projectile.tscn" id="2_56lik"]
 [ext_resource type="Script" path="res://Utility/CameraControler.gd" id="3_wvyh1"]
 [ext_resource type="PackedScene" uid="uid://cg477a0xtnemp" path="res://Utility/HurtBox.tscn" id="4_w3vc0"]
 

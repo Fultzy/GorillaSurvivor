@@ -13,5 +13,10 @@ script = ExtResource("1_axpil")
 wait_time = 0.5
 one_shot = true
 
+[node name="ConsoleInfoTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="reportHitCount" from="." to="." method="_on_report_hit_count"]
 [connection signal="timeout" from="DisableTimer" to="." method="_on_disable_timer_timeout"]
+[connection signal="timeout" from="ConsoleInfoTimer" to="." method="_on_console_info_timer_timeout"]
