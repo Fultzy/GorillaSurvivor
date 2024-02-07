@@ -27,11 +27,12 @@ public partial class BasicEnemy : CharacterBody2D
     public AnimatedSprite2D Sprite;
     public CollisionShape2D CollisionShape;
     public Area2D HurtBox;
-    public Area2D HitBox;
     public Timer DespawnTimer;
 
     // Player node
     public Player target;
+    public int targetWidth;
+    public int targetOffset = 9;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -41,10 +42,10 @@ public partial class BasicEnemy : CharacterBody2D
         Sprite = (AnimatedSprite2D)GetNode("AnimatedSprite2D");
         CollisionShape = (CollisionShape2D)GetNode("CollisionShape2D");
         HurtBox = (Area2D)GetNode("HurtBox");
-        HitBox = (Area2D)GetNode("HitBox");
 
         // assign the target player
         target = (Player)GetNode("../../Player");
+        targetWidth = (int)target.sprite.Texture.GetSize().X;
 
         // Set the despawn timer
         DespawnTimer = (Timer)GetNode("DespawnTimer");
@@ -59,16 +60,9 @@ public partial class BasicEnemy : CharacterBody2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double _delta)
     {
-
-        // If the enemy has a target and is alive
-
-        
-
         if (target != null && health > 0)
         {
             MoveToTargetPlayer();
-            
-            MoveAndSlide();
         }
     }
 
@@ -76,15 +70,18 @@ public partial class BasicEnemy : CharacterBody2D
     // Move the enemy towards the player
     private void MoveToTargetPlayer()
     {
-        var direction = GlobalPosition.DirectionTo(target.GlobalPosition);
+        var direction = (target.GlobalPosition - GlobalPosition).Normalized();
         Velocity = direction * speed;
+        
+        MoveAndSlide();
 
-        //CheckFlipSprite(direction);
+        CheckFlipSprite(direction);
     }
 
     // Flip the sprite based on the direction
     private void CheckFlipSprite(Vector2 direction)
     {
+        // Flip the sprite based on the direction
         if (direction.X < 0)
         {
             Sprite.FlipH = true;
@@ -93,13 +90,24 @@ public partial class BasicEnemy : CharacterBody2D
         {
             Sprite.FlipH = false;
         }
+
+        // Set Sprites z index based on the y position from player
+        // Only do this if within x range of the player
+        if (GlobalPosition.Y - targetOffset < target.GlobalPosition.Y)
+        {
+            Sprite.ZIndex = 0;
+        }
+        else
+        {
+            Sprite.ZIndex = 1;
+        }
     }
 
     // Called when the enemy is hurt
     private void _on_hurt_box_hurt_signal(long Damage)
     {
         health -= (int)Damage;
-
+        
         // If the enemy's health is 0 or less trigger death
         if (health <= 0)
         {
@@ -109,7 +117,6 @@ public partial class BasicEnemy : CharacterBody2D
 
             // Disable enemy collision and hitboxes
             HurtBox.QueueFree();
-            HitBox.QueueFree();
             CollisionShape.QueueFree();
 
             DropLoot();

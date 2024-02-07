@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://e7cbx3rbs2qc"]
+[gd_scene load_steps=11 format=3 uid="uid://e7cbx3rbs2qc"]
 
 [ext_resource type="Script" path="res://Enemy/BasicEnemy.cs" id="1_f7ory"]
 [ext_resource type="Texture2D" uid="uid://llrkvc1q7wk4" path="res://Enemy/LizardTracker/DeadGirl.png" id="2_1ihb5"]
 [ext_resource type="Texture2D" uid="uid://gruxsvvfi7ch" path="res://Enemy/LizardTracker/LizardfolkTrackerIdleSide.png" id="2_6i3ky"]
 [ext_resource type="PackedScene" uid="uid://cg477a0xtnemp" path="res://Utility/HurtBox.tscn" id="3_8sowt"]
-[ext_resource type="PackedScene" uid="uid://bifanb0brimi7" path="res://Utility/HitBox.tscn" id="4_cv5q4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tru3b"]
 atlas = ExtResource("2_6i3ky")
@@ -43,17 +42,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g038t"]
-radius = 6.0
-height = 26.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_2fr6a"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dnewi"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l7bx5"]
 size = Vector2(27, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fk6gf"]
-size = Vector2(17, 25)
-
-[node name="enemy_LizTracker" type="CharacterBody2D" groups=["Enemies"]]
+[node name="enemy_LizTracker" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 264
 motion_mode = 1
 script = ExtResource("1_f7ory")
 name = "LizardTracker"
@@ -67,27 +63,18 @@ frame_progress = 0.581739
 
 [node name="DespawnTimer" type="Timer" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_g038t")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["attack"]]
+shape = SubResource("CircleShape2D_2fr6a")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_8sowt")]
-visible = false
-collision_mask = 8
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_dnewi")
-
-[node name="HitBox" parent="." instance=ExtResource("4_cv5q4")]
-visible = false
-collision_mask = 4
-
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-position = Vector2(-0.5, 0.5)
-shape = SubResource("RectangleShape2D_fk6gf")
+shape = SubResource("RectangleShape2D_l7bx5")
 
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_DespawnTimer_timeout"]
 [connection signal="HurtSignal" from="HurtBox" to="." method="_on_hurt_box_hurt_signal"]
 
 [editable path="HurtBox"]
-[editable path="HitBox"]

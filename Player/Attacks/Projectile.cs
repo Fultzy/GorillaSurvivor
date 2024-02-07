@@ -3,26 +3,22 @@ using System;
 
 public partial class Projectile : RigidBody2D
 {
-    public Timer LifeTimer { get; set; }
-    public HitBox HitBox { get; set; }
+    public Timer lifeTimer { get; set; }
 
 
     [Export]
-    public int Damage { get; set; } = 1;
+    public int damage { get; set; } = 1;
     [Export]
-    public int Speed { get; set; } = 100;
+    public int speed { get; set; } = 100;
     [Export]
-    public int LifeTime { get; set; } = 5;
+    public int lifeTime { get; set; } = 1;
 
     public override void _Ready()
     {
-        LifeTimer = GetNode<Timer>("LifeTimer");
-        HitBox = GetNode<HitBox>("HitBox");
+        lifeTimer = GetNode<Timer>("LifeTimer");
 
-        HitBox.Damage = Damage;
-
-        LifeTimer.WaitTime = LifeTime;
-        LifeTimer.Start();
+        lifeTimer.WaitTime = lifeTime;
+        lifeTimer.Start();
     }
 
     public void _on_LifeTimer_timeout()

@@ -41,6 +41,7 @@ func _on_timer_timeout():
 						enemy_spawn.damage = spawn.enemy_damage
 						enemy_spawn.xpGain = spawn.xp_reward
 						enemy_spawn.size = spawn.enemy_size
+						enemy_spawn.color = spawn.enemy_color
 						
 						# add enemy to the scene
 						add_child(enemy_spawn)

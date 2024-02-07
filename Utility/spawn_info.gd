@@ -19,7 +19,7 @@ class_name Spawn_info
 
 # contains the enemy PackedScene to be spawned
 @export var enemy:Resource
-@export var color:Color
+@export var enemy_color:Color
 
 # assignments for enemy to spawn
 @export var enemy_health:int
