@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bux66j64nx04d"
-path="res://.godot/imported/water.png-be18442fa675d27fb5c8b26420020317.ctex"
+uid="uid://dpvyhecjoooce"
+path="res://.godot/imported/UnPeeledBanana.png-28f40ab2a1ffaa36304893153f47d354.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/water.png"
-dest_files=["res://.godot/imported/water.png-be18442fa675d27fb5c8b26420020317.ctex"]
+source_file="res://Assets/Sprites/UnPeeledBanana.png"
+dest_files=["res://.godot/imported/UnPeeledBanana.png-28f40ab2a1ffaa36304893153f47d354.ctex"]
 
 [params]
 

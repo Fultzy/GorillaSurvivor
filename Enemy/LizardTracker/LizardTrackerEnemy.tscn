@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://e7cbx3rbs2qc"]
+[gd_scene load_steps=12 format=3 uid="uid://e7cbx3rbs2qc"]
 
 [ext_resource type="Script" path="res://Enemy/BasicEnemy.cs" id="1_f7ory"]
 [ext_resource type="Texture2D" uid="uid://llrkvc1q7wk4" path="res://Enemy/LizardTracker/DeadGirl.png" id="2_1ihb5"]
 [ext_resource type="Texture2D" uid="uid://gruxsvvfi7ch" path="res://Enemy/LizardTracker/LizardfolkTrackerIdleSide.png" id="2_6i3ky"]
+[ext_resource type="PackedScene" uid="uid://ii4ovhny5gx3" path="res://Objects/xpCollectable.tscn" id="2_f3cga"]
 [ext_resource type="PackedScene" uid="uid://cg477a0xtnemp" path="res://Utility/HurtBox.tscn" id="3_8sowt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tru3b"]
@@ -53,8 +54,10 @@ collision_mask = 264
 motion_mode = 1
 script = ExtResource("1_f7ory")
 name = "LizardTracker"
+xpDrop = ExtResource("2_f3cga")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 3
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_se2ve")
 animation = &"Idle"

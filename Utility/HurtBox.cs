@@ -71,7 +71,6 @@ public partial class HurtBox : Area2D
 					case HurtBoxMode.Active:
 						Collision.CallDeferred("set", "disabled", true);
 						DisableTimer.Start();
-						SavedHurtBoxMode = HurtBoxMode.Disabled;
 				
 						// emit a signal to the parent node to take damage
 						EmitSignal(nameof(HurtSignal), damage);
@@ -90,7 +89,6 @@ public partial class HurtBox : Area2D
 	private void _on_disable_timer_timeout()
 	{
 		Collision.CallDeferred("set", "disabled", false);
-		SavedHurtBoxMode = HurtBoxMode.Active;
 	}
 }
 

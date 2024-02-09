@@ -10,10 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Test1"
-run/main_scene="res://Scenes/world.tscn"
+config/name="GorillaSurvivor"
+run/main_scene="res://Scenes/GameStart.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://Assets/Icons/icon.svg"
+
+[display]
+
+window/size/initial_position_type=2
+window/stretch/mode="viewport"
 
 [dotnet]
 

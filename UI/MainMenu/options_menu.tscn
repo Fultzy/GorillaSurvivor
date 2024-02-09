@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://66jk3js3reyc"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/OptionsMenu.cs" id="1_fytg4"]
+[ext_resource type="Texture2D" uid="uid://lyp3aff6aiiy" path="res://Player/GurillyStatic.png" id="1_w31ck"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i7yvo"]
+font_size = 86
+
+[node name="OptionsMenu" type="Node2D"]
+script = ExtResource("1_fytg4")
+
+[node name="GurillyStatic" type="Sprite2D" parent="."]
+position = Vector2(365, 385)
+scale = Vector2(1.04517, 0.988142)
+texture = ExtResource("1_w31ck")
+flip_h = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 249.0
+offset_top = 118.0
+offset_right = 748.0
+offset_bottom = 254.0
+text = "Options"
+label_settings = SubResource("LabelSettings_i7yvo")
+
+[node name="BackToMainButton" type="Button" parent="." groups=["ui"]]
+offset_left = 42.0
+offset_top = 164.0
+offset_right = 157.0
+offset_bottom = 203.0
+text = "Back"
+
+[node name="DeleteSaveButton" type="Button" parent="."]
+offset_left = 762.0
+offset_top = 535.0
+offset_right = 1071.0
+offset_bottom = 590.0
+text = "Delete Save"
+
+[node name="DeleteSaveButton2" type="Button" parent="."]
+offset_left = 763.0
+offset_top = 448.0
+offset_right = 1072.0
+offset_bottom = 503.0
+text = "Delete Save"
+
+[node name="DeleteSaveButton3" type="Button" parent="."]
+offset_left = 763.0
+offset_top = 365.0
+offset_right = 1072.0
+offset_bottom = 420.0
+text = "Delete Save"

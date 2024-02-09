@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://ii4ovhny5gx3"]
+
+[ext_resource type="Script" path="res://Objects/xpCollectable.cs" id="1_xicls"]
+[ext_resource type="Texture2D" uid="uid://bhrdevkpcoi2" path="res://Assets/Sprites/PeelingBanana.png" id="2_ufk1o"]
+
+[sub_resource type="Gradient" id="Gradient_nvuiu"]
+offsets = PackedFloat32Array(0.003125, 0.63125)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fpcdl"]
+gradient = SubResource("Gradient_nvuiu")
+fill = 1
+fill_from = Vector2(0.521368, 0.508547)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6f5q"]
+size = Vector2(12.9699, 18)
+
+[node name="xpCollectable" type="Area2D" groups=["loot"]]
+z_index = 2
+scale = Vector2(1.00232, 1)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_xicls")
+healing = 5
+speed = 4.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.913725, 0.835294, 0, 0.254902)
+energy = 0.54
+texture = SubResource("GradientTexture2D_fpcdl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -3.14159
+scale = Vector2(-0.13, -0.13)
+texture = ExtResource("2_ufk1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_t6f5q")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_xpCollectable_body_entered"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

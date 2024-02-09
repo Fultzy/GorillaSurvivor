@@ -86,5 +86,7 @@ func get_random_position_outside_viewport():
 
 func _on_console_info_timer_timeout():
 	# print the name of this node and the number of children it has
-	print(get_name(), ": ", get_child_count())
+	var children = get_child_count() - 2
+	if children > 0:
+		print(get_name(), ": ", children)
 

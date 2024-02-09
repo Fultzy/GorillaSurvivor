@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://426p1y1aqh38"]
+[gd_scene load_steps=11 format=3 uid="uid://426p1y1aqh38"]
 
 [ext_resource type="Texture2D" uid="uid://lyp3aff6aiiy" path="res://Player/GurillyStatic.png" id="1_4evct"]
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_d4vci"]
 [ext_resource type="PackedScene" uid="uid://b506yn5qqx1b5" path="res://Player/Attacks/projectile.tscn" id="2_56lik"]
 [ext_resource type="Script" path="res://Utility/CameraControler.gd" id="3_wvyh1"]
 [ext_resource type="PackedScene" uid="uid://cg477a0xtnemp" path="res://Utility/HurtBox.tscn" id="4_w3vc0"]
+[ext_resource type="PackedScene" uid="uid://cw27ipvq7s0xo" path="res://UI/PlayerUI/player_ui.tscn" id="5_kkxt8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ibkqo"]
-radius = 14.0
+radius = 3.8059
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xadu1"]
 animations = [{
@@ -18,11 +19,14 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pd4et"]
-radius = 15.0
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o8ih4"]
+radius = 153.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("attacks") groups=["player"]]
-collision_layer = 12
-collision_mask = 0
+collision_layer = 28
+collision_mask = 16
 script = ExtResource("1_d4vci")
 attacks = []
 projectileScene = ExtResource("2_56lik")
@@ -35,12 +39,22 @@ texture = ExtResource("1_4evct")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, 4)
+scale = Vector2(3.95, 3.95)
 shape = SubResource("CircleShape2D_ibkqo")
+
+[node name="DisableTimer" type="Timer" parent="CollisionShape2D"]
+wait_time = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 1
-zoom = Vector2(2, 2)
 script = ExtResource("3_wvyh1")
+
+[node name="PlayerUI" parent="Camera2D" instance=ExtResource("5_kkxt8")]
+anchors_preset = -1
+offset_left = -579.0
+offset_top = -323.0
+offset_right = -579.0
+offset_bottom = -323.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -53,13 +67,25 @@ centered = false
 wait_time = 0.358
 one_shot = true
 
-[node name="HurtBox" parent="." instance=ExtResource("4_w3vc0")]
+[node name="HurtBox" parent="." groups=["hurt_box"] instance=ExtResource("4_w3vc0")]
 visible = false
+z_index = 3
+collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_pd4et")
+
+[node name="LootPickup" type="Area2D" parent="." groups=["loot_pickup"]]
+visible = false
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LootPickup"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_o8ih4")
+debug_color = Color(0.588235, 1, 0.815686, 0.0705882)
 
 [connection signal="timeout" from="BasicAttackTimer" to="." method="_on_BasicAttackTimer_timeout"]
 [connection signal="HurtSignal" from="HurtBox" to="." method="_on_hurt_box_hurt_signal"]

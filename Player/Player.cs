@@ -1,9 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 
 public partial class Player : CharacterBody2D
 {
@@ -19,12 +17,14 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public float attackSpeed = 1.0f;
 
-	// DEBUG
 	[Export]
 	public bool autoAttack = true;
 
+	// instance xp and health
 	public int xp = 0;
+	public int xpToNextLevel;
 	public int health = 100;
+	public int bananas = 0;
 
 	// special attacks
 	[Export]
@@ -32,39 +32,40 @@ public partial class Player : CharacterBody2D
 	public Node2D thrownPoop { get; set; }
 
 	// basic attack
-	public Timer basicAttackTimer { get; set; }
-	private Node _projectilesParent;
 	[Export]
 	public PackedScene projectileScene { get; set; }
-	[Export]
-	public StringName projectilesParantGroup { get; set; } = "ProjectilesParent";
+	private Node _projectilesParent;
+	public Timer basicAttackTimer { get; set; }
 
 
 	// Camera and sprite
 	public Sprite2D sprite;
+	public DamageIndicator damageIndicator;
 	public Camera2D camera;
 	public Vector2 zoomMin = new Vector2(0.2f, 0.2f);
 	public Vector2 zoomMax = new Vector2(2, 2);
 	public float zoomSpeed = 0.1f;
+	public Control PlayerUI;
 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_projectilesParent = GetTree().GetFirstNodeInGroup(projectilesParantGroup);
+		// get the parent node for projectiles
+		_projectilesParent = GetTree().GetFirstNodeInGroup("ProjectilesParent");
 
-		if (_projectilesParent == null)
-		{
-			GD.PushWarning("No ProjectilesParent found");
-		}
-
+		// get the basic attack timer
 		basicAttackTimer = GetNode<Timer>("BasicAttackTimer");
+
+		// TODO: Attack delay should be calculated using attack speed, not directly
 		basicAttackTimer.WaitTime = attackSpeed;
 
-
+		// get the sprite and camera
         sprite = (Sprite2D)GetNode("Sprite");
 		camera = (Camera2D)GetNode("Camera2D");
+		PlayerUI = camera.GetNode<Control>("PlayerUI");
 	}
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
@@ -108,11 +109,10 @@ public partial class Player : CharacterBody2D
 	}
 
 	// called when the player is hit
-	// 
 	private void _on_hurt_box_hurt_signal(long Damage)
 	{
 		health -= (int)Damage;
-		GD.Print("Player health: " + health);
+		PlayerUI.GetNode<ProgressBar>("HealthBar").Value = health;
 
 		if (health <= 0)
 		{
@@ -123,11 +123,22 @@ public partial class Player : CharacterBody2D
         }
 	}
 
+	public void UpdateUI()
+	{
+		// update the UI with the players stats
+		PlayerUI.GetNode<ProgressBar>("HealthBar").Value = health;
+		PlayerUI.GetNode<ProgressBar>("xpBar").Value = xp;
+
+		PlayerUI.GetNode<Label>("LevelLabel").Text = "Level: " + level;
+		PlayerUI.GetNode<Label>("BananasLabel").Text = "Bananas: " + bananas;
+	}
+
 	// called on every tick and trys to start an attack
     private void TryAttack()
     {
+		bool IsFalse = false;
 		// currently attacks.count is always 0
-        if (attacks.Count() > 0)
+        if (IsFalse)
         {
 			// TODO: do not use loops on something that runs every tick!!
 			// instead use a counter that ticks up, using that as an index.
@@ -154,15 +165,17 @@ public partial class Player : CharacterBody2D
 	// i dont like how its in the player script.... 
     private void ShootProjectile(PackedScene projectileToShoot, Vector2 aim)
     {
+		// create a projectile instance
         Projectile projectileInstance = projectileToShoot.Instantiate<Projectile>();
         projectileInstance.damage = damage;
 
+		// add the projectile to the parent node
         _projectilesParent.AddChild(projectileInstance);
 		projectileInstance.GlobalPosition = GlobalPosition;
-		basicAttackTimer.Start();
-
+		
+		// apply force to the projectile
 		projectileInstance.ApplyForce(aim);
-
+		basicAttackTimer.Start();
     }
 
 	// get the position of the nearest enemy and returns a vector2
@@ -201,18 +214,22 @@ public partial class Player : CharacterBody2D
 	{
 
         Array<Node> enemies = GetTree().GetNodesInGroup("enemy");
-        if (enemies.Count > 0)
+
+		// remove dead enemies
+		var targets = enemies.Where(enemy => (enemy as BasicEnemy).health > 0).ToArray();
+		var targetNum = targets.Count();
+
+		if (targetNum > 0)
 		{
-            
 			Random random = new Random();
-            int index = random.Next(0, enemies.Count);
-            Node2D enemy = enemies[index] as Node2D;
-            return enemy.GlobalPosition;
-        }
-        else
+			int index = random.Next(0, targetNum);
+			Node2D enemy = targets[index] as Node2D;
+			return enemy.GlobalPosition;
+		}
+		else
 		{
-            return Vector2.Zero;
-        }
+			return Vector2.Zero;
+		}
     }
 
 	// this is used to delay the basic attack
@@ -236,11 +253,27 @@ public partial class Player : CharacterBody2D
         }
     }
 
+	// calculate how much xp is needed to level up
+	public void CalculateNextLevel()
+	{
+		int xpNeeded = level * 500 * xp / 2;
+
+		xpToNextLevel = xpNeeded;
+	}
+
 	public void LevelUp()
 	{
 		// increase stats, low numbers bc lvling up is too easy
 		level += 1;
+		PlayerUI.GetNode<Label>("LevelLabel").Text = "Level: " + level;
+
 		maxHealth += 5;
+		PlayerUI.GetNode<ProgressBar>("HealthBar").MaxValue = maxHealth;
+		
+		CalculateNextLevel();
+		PlayerUI.GetNode<ProgressBar>("xpBar").MinValue = xp;
+		PlayerUI.GetNode<ProgressBar>("xpBar").MaxValue = xpToNextLevel;
+
 		damage += 1;
 		speed += 1;
 		
@@ -251,9 +284,6 @@ public partial class Player : CharacterBody2D
 			attackSpeed = 0.08f; // FAST AF
 
         basicAttackTimer.WaitTime = attackSpeed;
-
-        // reset health
-        health = maxHealth;
 
 		// Write new stats to console
 		GD.Print("\nLevel Up! Level: " + level);

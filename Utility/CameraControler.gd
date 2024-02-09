@@ -1,6 +1,6 @@
 extends Camera2D
 
-var zoom_min = Vector2(.80001, .80001)
+var zoom_min = Vector2(1, 1)
 var zoom_max = Vector2(10, 10)
 var zoom_speed = Vector2(0.1, 0.1)
 

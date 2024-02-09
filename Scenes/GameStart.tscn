@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn7xl2q6d18qb"]
+
+[ext_resource type="PackedScene" uid="uid://mpjlvcdh8usf" path="res://UI/MainMenu/main_menu.tscn" id="1_iyao5"]
+[ext_resource type="Script" path="res://Scenes/GameStart.cs" id="1_sqn0h"]
+[ext_resource type="PackedScene" uid="uid://66jk3js3reyc" path="res://UI/MainMenu/options_menu.tscn" id="2_pubmb"]
+
+[node name="GameStart" type="Node2D"]
+script = ExtResource("1_sqn0h")
+
+[node name="MainMenu" parent="." instance=ExtResource("1_iyao5")]
+
+[node name="OptionsMenu" parent="." instance=ExtResource("2_pubmb")]
+
+[connection signal="button_down" from="MainMenu/PlayButton" to="." method="_on_play_button_button_down"]
+[connection signal="button_down" from="MainMenu/OptionsButton" to="." method="_on_options_button_button_down"]
+[connection signal="button_down" from="OptionsMenu/BackToMainButton" to="." method="_on_back_to_main_button_button_down"]
+
+[editable path="MainMenu"]
+[editable path="OptionsMenu"]

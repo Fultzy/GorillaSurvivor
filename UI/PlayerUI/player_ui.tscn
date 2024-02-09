@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw27ipvq7s0xo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ppjhn"]
+bg_color = Color(1, 0, 0, 0.141176)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmtuh"]
+bg_color = Color(0.756863, 0.0941176, 0.137255, 0.596078)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0eo31"]
+bg_color = Color(0.996078, 0.996078, 0, 0.65098)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rikjn"]
+font_size = 20
+font_color = Color(0.611765, 0.709804, 0.8, 1)
+outline_size = 1
+outline_color = Color(1, 0.513726, 0.564706, 1)
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+layout_mode = 2
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 1152.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_ppjhn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wmtuh")
+step = 1.0
+value = 100.0
+
+[node name="xpBar" type="ProgressBar" parent="."]
+offset_left = 4.0
+offset_top = 26.0
+offset_right = 1144.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_0eo31")
+step = 1.0
+show_percentage = false
+
+[node name="LevelLabel" type="Label" parent="."]
+offset_left = 13.0
+offset_top = 52.0
+offset_right = 170.0
+offset_bottom = 80.0
+text = "Level: 1
+"
+label_settings = SubResource("LabelSettings_rikjn")
+uppercase = true
+
+[node name="BananasLabel" type="Label" parent="."]
+layout_mode = 1
+offset_left = 13.0
+offset_top = 87.0
+offset_right = 193.0
+offset_bottom = 129.0
+text = "Bananas: 0"
+label_settings = SubResource("LabelSettings_rikjn")
+uppercase = true

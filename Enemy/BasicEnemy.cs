@@ -24,15 +24,24 @@ public partial class BasicEnemy : CharacterBody2D
     public Color color = new Color(1, 1, 1, 1);
 
     // Enemy components
+    [Export]
+    public PackedScene xpDrop { get; set; }
     public AnimatedSprite2D Sprite;
     public CollisionShape2D CollisionShape;
     public Area2D HurtBox;
+    public PackedScene DamageIndicator;
     public Timer DespawnTimer;
+
+    public Node ObjectsParent;
 
     // Player node
     public Player target;
     public int targetWidth;
     public int targetOffset = 9;
+
+    // DeBugging
+    [Export]
+    public bool IsPunchingBag = false;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -42,10 +51,13 @@ public partial class BasicEnemy : CharacterBody2D
         Sprite = (AnimatedSprite2D)GetNode("AnimatedSprite2D");
         CollisionShape = (CollisionShape2D)GetNode("CollisionShape2D");
         HurtBox = (Area2D)GetNode("HurtBox");
+        DamageIndicator = (PackedScene)ResourceLoader.Load("res://UI/DamageIndicator/DamageIndicator.tscn");
 
-        // assign the target player
+        // assign the target player TODO: Make it Better
         target = (Player)GetNode("../../Player");
-        targetWidth = (int)target.sprite.Texture.GetSize().X;
+
+        // Get the Objects parent node
+        ObjectsParent = GetTree().GetFirstNodeInGroup("objects");
 
         // Set the despawn timer
         DespawnTimer = (Timer)GetNode("DespawnTimer");
@@ -70,6 +82,8 @@ public partial class BasicEnemy : CharacterBody2D
     // Move the enemy towards the player
     private void MoveToTargetPlayer()
     {
+        if (IsPunchingBag) return;
+
         var direction = (target.GlobalPosition - GlobalPosition).Normalized();
         Velocity = direction * speed;
         
@@ -95,39 +109,65 @@ public partial class BasicEnemy : CharacterBody2D
         // Only do this if within x range of the player
         if (GlobalPosition.Y - targetOffset < target.GlobalPosition.Y)
         {
-            Sprite.ZIndex = 0;
+            // this is the same layer as the player
+            Sprite.ZIndex = target.ZIndex;
         }
         else
         {
-            Sprite.ZIndex = 1;
+            // this is the layer above the player
+            Sprite.ZIndex = target.ZIndex + 1;
         }
     }
 
     // Called when the enemy is hurt
     private void _on_hurt_box_hurt_signal(long Damage)
-    {
+    {   
+        if (IsPunchingBag) return;
+
         health -= (int)Damage;
-        
+        //CallDeferred("SpawnDamageIndicator", (int)Damage);
+        if (Damage > 0) SpawnDamageIndicator((int)Damage);
+
         // If the enemy's health is 0 or less trigger death
         if (health <= 0)
         {
             // Trigger death animation
             DespawnTimer.Start();
+            Sprite.ZIndex = 0;
             Sprite.Play("Death");
 
             // Disable enemy collision and hitboxes
             HurtBox.QueueFree();
             CollisionShape.QueueFree();
 
-            DropLoot();
+            // Drop loot
+            CallDeferred("DropLoot");
         }
     }
 
+    // Spawn a damage indicator
+    private void SpawnDamageIndicator(int damage)
+    {
+        // Create a new damage indicator and set its position
+        DamageIndicator dmgInd = DamageIndicator.Instantiate() as DamageIndicator;
+        dmgInd.GlobalPosition = GlobalPosition;
+        //dmgInd.label.Text = damage.ToString();
+
+        // Add the damage indicator to the scene
+        ObjectsParent.AddChild(dmgInd);
+    }
+
+    // Call this method like this: CallDeferred("DropLoot");
+    // this prevents godot from spawning the drop on ths same frame as the call, which causes errors
     public void DropLoot()
     {
-        // temp add xp to player
-        // this will be replaced with a loot table
-        target.xp += xpGain;
+        // Create a new xp drop and set its position
+        xpCollectable drop = xpDrop.Instantiate<xpCollectable>();
+        drop.GlobalPosition = GlobalPosition;
+        drop.xpValue = xpGain;
+
+        // Add the xp drop to the scene
+        ObjectsParent.AddChild(drop);
     }
 
     // Called when enemy despawn timer is finished

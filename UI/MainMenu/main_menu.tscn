@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://mpjlvcdh8usf"]
+
+[ext_resource type="Texture2D" uid="uid://lyp3aff6aiiy" path="res://Player/GurillyStatic.png" id="1_3tya8"]
+[ext_resource type="Script" path="res://UI/MainMenu/MainMenu.cs" id="1_xl2uk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mnb76"]
+font_size = 51
+
+[node name="MainMenu" type="Node2D" groups=["ui"]]
+script = ExtResource("1_xl2uk")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 54.0
+offset_top = 91.0
+offset_right = 618.0
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Gorilla Survivor"
+label_settings = SubResource("LabelSettings_mnb76")
+
+[node name="PlayButton" type="Button" parent="."]
+offset_left = 755.0
+offset_top = 356.0
+offset_right = 1073.0
+offset_bottom = 405.0
+action_mode = 0
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="."]
+offset_left = 756.0
+offset_top = 447.0
+offset_right = 1074.0
+offset_bottom = 496.0
+text = "Options"
+
+[node name="GurillyStatic" type="Sprite2D" parent="."]
+position = Vector2(442, 386)
+texture = ExtResource("1_3tya8")
